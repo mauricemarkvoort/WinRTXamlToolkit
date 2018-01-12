@@ -199,7 +199,7 @@ namespace WinRTXamlToolkit.Controls.Extensions
             Attach(listView, boundSelection);
         }
 
-        private void Attach(ListViewBase listView, dynamic boundSelection)
+        private void Attach(ListViewBase listView, INotifyCollectionChanged boundSelection)
         {
             _listView = listView;
             _listView.SelectionChanged += OnListViewSelectionChanged;
@@ -213,11 +213,8 @@ namespace WinRTXamlToolkit.Controls.Extensions
                     _listView.SelectedItems.Add(item);
                 }
             }
-
-            var eventInfo =
-                _boundSelection.GetType().GetDeclaredEvent("CollectionChanged");
-            eventInfo.AddEventHandler(_boundSelection, _handler);
-            //_boundSelection.CollectionChanged += OnBoundSelectionChanged;
+            
+            boundSelection.CollectionChanged += _handler;
         }
 
         private void OnListViewSelectionChanged(
