@@ -630,7 +630,20 @@ namespace WinRTXamlToolkit.Controls
         {
             DefaultStyleKey = typeof(TreeViewItem);
             Interaction = new InteractionHelper(this);
+            Window.Current.Activated += Current_Activated;
+            CanChange = true;
         }
+
+        private void Current_Activated(object sender, Windows.UI.Core.WindowActivatedEventArgs e)
+        {
+            if (e.WindowActivationState == CoreWindowActivationState.Deactivated)
+            {
+                CanChange = false;
+            }
+        }
+
+
+        private bool CanChange;
 
         /// <summary>
         /// Returns a
@@ -1094,7 +1107,7 @@ namespace WinRTXamlToolkit.Controls
 
             try
             {
-                if (Interaction.AllowGotFocus(e) && !CancelGotFocusBubble)
+                if (Interaction.AllowGotFocus(e) && !CancelGotFocusBubble && CanChange)
                 {
                     // Select the item when it's focused
                     Select(true);
@@ -1102,6 +1115,8 @@ namespace WinRTXamlToolkit.Controls
                     // ActivateAsync the selection
                     IsSelectionActive = true;
                     UpdateVisualState(true);
+
+                    CanChange = false;
 
                     Interaction.OnGotFocusBase();
                     base.OnGotFocus(e);
@@ -1189,6 +1204,8 @@ namespace WinRTXamlToolkit.Controls
         /// <param name="e">Event arguments.</param>
         private void OnHeaderMouseLeftButtonDown(object sender, PointerRoutedEventArgs e)
         {
+            CanChange = true;
+
             if (Interaction.AllowMouseLeftButtonDown(e))
             {
                 // If the event hasn't already been handled and this item is
