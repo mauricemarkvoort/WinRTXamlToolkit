@@ -776,8 +776,6 @@ namespace WinRTXamlToolkit.Controls
                 {
                     case VirtualKey.Home:
                     case VirtualKey.End:
-                    case VirtualKey.PageUp:
-                    case VirtualKey.PageDown:
                     case VirtualKey.Left:
                     case VirtualKey.Right:
                     case VirtualKey.Up:
@@ -793,21 +791,6 @@ namespace WinRTXamlToolkit.Controls
             {
                 switch (e.Key)
                 {
-                    case VirtualKey.PageUp:
-                    case VirtualKey.PageDown:
-                        if (SelectedContainer != null)
-                        {
-                            if (HandleScrollByPage(e.Key == VirtualKey.PageUp))
-                            {
-                                e.Handled = true;
-                            }
-                            break;
-                        }
-                        if (FocusFirstItem())
-                        {
-                            e.Handled = true;
-                        }
-                        break;
                     case VirtualKey.Home:
                         if (FocusFirstItem())
                         {
@@ -846,28 +829,6 @@ namespace WinRTXamlToolkit.Controls
 
                 switch (invariantKey)
                 {
-                    case VirtualKey.PageUp:
-                        // Move horizontally if we've run out of room vertically
-                        if (!NumericExtensions.IsGreaterThan(scrollHost.ExtentHeight, scrollHost.ViewportHeight))
-                        {
-                            scrollHost.PageLeft();
-                        }
-                        else
-                        {
-                            scrollHost.PageUp();
-                        }
-                        return true;
-                    case VirtualKey.PageDown:
-                        // Move horizontally if we've run out of room vertically
-                        if (!NumericExtensions.IsGreaterThan(scrollHost.ExtentHeight, scrollHost.ViewportHeight))
-                        {
-                            scrollHost.PageRight();
-                        }
-                        else
-                        {
-                            scrollHost.PageDown();
-                        }
-                        return true;
                     case VirtualKey.Home:
                         scrollHost.ScrollToTop();
                         return true;

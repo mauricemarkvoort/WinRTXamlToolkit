@@ -213,8 +213,11 @@ namespace WinRTXamlToolkit.Controls.Extensions
                     _listView.SelectedItems.Add(item);
                 }
             }
-            
+
+//            var eventInfo =
+//                _boundSelection.GetType().GetDeclaredEvent("CollectionChanged");
             boundSelection.CollectionChanged += _handler;
+            //_boundSelection.CollectionChanged += OnBoundSelectionChanged;
         }
 
         private void OnListViewSelectionChanged(
