@@ -1,0 +1,18 @@
+_ReSharper.WinRTXamlToolkit/
+packages
+Nuget/Content
+Nuget/Lib
+Nuget/Tools
+Nuget/msbuild.log
+Nuget/*.nupkg
+**/bin/
+**/obj/
+**/AppPackages/
+*.user
+*.suo
+*.sdf
+*.opensdf
+**Debug
+**Release
+**Generated Files
+**ipch
